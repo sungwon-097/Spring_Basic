@@ -20,7 +20,6 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-
     public Long join(Member member){ // 회원가입
         long start = System.currentTimeMillis();
 
