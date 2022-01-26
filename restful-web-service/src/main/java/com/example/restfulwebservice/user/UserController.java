@@ -1,12 +1,18 @@
 package com.example.restfulwebservice.user;
-
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class UserController {
@@ -42,7 +48,6 @@ public class UserController {
 
         return ResponseEntity.created(location).build();
     }
-
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable int id){
         User user = service.deleteById(id);
