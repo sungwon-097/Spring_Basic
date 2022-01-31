@@ -5,3 +5,8 @@ logging:
 spring:
   messages:
     basename: messages
+
+security:
+  user:
+    name : username
+    password : password
