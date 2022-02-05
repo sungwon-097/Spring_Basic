@@ -42,10 +42,10 @@ public class User {
     @ApiModelProperty(notes = "사용자의 주민번호를 입력해 주세요.")
     private String ssn;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user") // 한 명의 사용자가 여러 개의 post 를 저장 가능
     private List<Post> posts;
 
-    public User(int id, String name, Date joinDate, String password, String ssn) {
+    public User(int id, String name, Date joinDate, String password, String ssn) { // post 데이터의 생성자
         this.id = id;
         this.name = name;
         this.joinDate = joinDate;

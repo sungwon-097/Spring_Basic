@@ -32,15 +32,15 @@ public class UserJpaController {
 
     @GetMapping("/users/{id}")
     public Resource<User> retrieveUser(@PathVariable int id) {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id); // 검색어가 존재하지 않을 수도 있기 때문에 Optional 선언
 
-        if (!user.isPresent()) {
+        if (!user.isPresent()) { // user 데이터가 존재하지 않는 경우 예외처리
             throw new UserNotFoundException(String.format("ID[%s} not found", id));
         }
 
         Resource<User> resource = new Resource<>(user.get());
-        ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
-        resource.add(linkTo.withRel("all-users"));
+        ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers()); // 전체목록보기 링크데이터 생성
+        resource.add(linkTo.withRel("all-users")); // resource 에 링크 추가
 
         return resource;
     }
@@ -49,7 +49,7 @@ public class UserJpaController {
     public ResponseEntity<User> updateUser(@PathVariable int id, @RequestBody User user) {
         Optional<User> optionalUser = userRepository.findById(id);
 
-        if (!optionalUser.isPresent()) {
+        if (!optionalUser.isPresent()) { // 존재하지 않는다면 notfound exception 을 반환
             throw new UserNotFoundException(String.format("ID[%s} not found", id));
         }
 
@@ -86,7 +86,7 @@ public class UserJpaController {
 
     // /jpa/users/90001/posts
     @GetMapping("/users/{id}/posts")
-    public List<Post> retrieveAllPostsByUser(@PathVariable int id) {
+    public List<Post> retrieveAllPostsByUser(@PathVariable int id) { // 개별 사용자가 가진 post 정보를 가져옴
         Optional<User> user = userRepository.findById(id);
 
         if (!user.isPresent()) {
@@ -94,7 +94,7 @@ public class UserJpaController {
         }
 
         return user.get().getPosts();
-    }
+    } // user 데이터가 존재 할 때 post 데이터를 가져옴
 
     @PostMapping("/users/{id}/posts")
     public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post) {
