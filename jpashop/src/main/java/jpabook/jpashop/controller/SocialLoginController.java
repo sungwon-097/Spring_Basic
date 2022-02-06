@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class SocialLoginController {
 
-    @GetMapping("/naver/auth:?code={code}&state={state}")
+    @GetMapping("/naver/auth?code={code}&state={state}")
     public @ResponseBody String naverLogin(@PathVariable String code, @PathVariable String state){
         return code;
     }
