@@ -45,6 +45,7 @@ public class UserController {
         if(user == null){ // user not found
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
+        // 필요한 리소스를 그때그때 직접 작업하지 않더라도 hateos 사용으로 추가로 사용 할 수 있는 링크가 자동으로 설계됨
         EntityModel<User> model = EntityModel.of(user); // 생성자가 protected 되어있음
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers()); // static import
         model.add(linkTo.withRel("all-users"));

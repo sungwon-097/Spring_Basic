@@ -16,5 +16,11 @@ spring:
   devtools:
     restart:
       enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+# application 을 모니터링하고 관리하는 기능인 actuator 의 기능 확장
 
 # .properties -> property = value
