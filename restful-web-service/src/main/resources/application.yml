@@ -1,0 +1,17 @@
+# change port
+server :
+  port : 8088
+
+#debugging mode log
+logging:
+  level:
+    org.springframework: DEBUG
+
+spring:
+  messages:
+    basename: messages
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# .properties -> property = value
