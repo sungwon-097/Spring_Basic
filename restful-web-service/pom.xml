@@ -69,6 +69,11 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional> <!-- Restart 를 원하지 않을 경우 false -->
+        </dependency>
     </dependencies>
 
     <build>
