@@ -13,9 +13,11 @@ import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past; // Add dependency : hibernate-validator
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -45,4 +47,15 @@ public class User {
 //    @JsonIgnore
     @ApiModelProperty(notes = "사용자 주민번호를 입력 해 주세요")
     private String ssn;
+
+    @OneToMany(mappedBy = "user") // 하나의 유저에 여러개의 포스트 존재 가능
+    private List<Post> posts;
+
+    public User(int id, String name, Date joinDate, String password, String ssn){
+        this.id = id;
+        this.name = name;
+        this.joinDate = joinDate;
+        this.password = password;
+        this.ssn = ssn;
+    }
 }

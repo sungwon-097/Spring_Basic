@@ -20,6 +20,9 @@ public class UserJpaController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping("/users")
     public List<User> retrieveAllUsers(){
         return repository.findAll();
@@ -27,11 +30,11 @@ public class UserJpaController {
 
     @GetMapping("/user/{id}")
     public EntityModel<User> retrieveUser(@PathVariable int id){
-        Optional<User> user = repository.findById(id); // &#xB370;&#xC774;&#xD130;&#xAC00; &#xC874;&#xC7AC;&#xD558;&#xC9C0; &#xC54A;&#xC744; &#xC218;&#xB3C4; &#xC788;&#xAE30; &#xB54C;&#xBB38;&#xC5D0; &#xC635;&#xC154;&#xB110;&#xB85C; &#xC815;&#xC758; &#xB418;&#xC5B4;&#xC788;&#xC74C;
-
+        Optional<User> user = repository.findById(id);
         if(!user.isPresent()){
              throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
+
         EntityModel<User> model = EntityModel.of(user.get());
         WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(
                 WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllUsers()); // retrieveAllUsers 와 연동시킴
@@ -52,6 +55,40 @@ public class UserJpaController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("{id}")// 현재 생성 되어있는 id
                 .buildAndExpand(savedUser.getId())// 저장되어진 객체의 id 값
+                .toUri(); // uri 에 매핑
+
+        return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrieveAllPostsByUser(@PathVariable int id){
+        Optional<User> user = repository.findById(id); // retrieveUser 메소드의 로직을 그대로 가져옴
+
+        if(!user.isPresent()){
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        List<Post> post = user.get().getPosts();
+
+        if(post.isEmpty()){
+             System.out.println("Post not found");
+        }
+        return post;
+    }
+
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post){
+        Optional<User> user = repository.findById(id);
+        if(!user.isPresent()){
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        post.setUser(user.get());
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("{id}")// 현재 생성 되어있는 id
+                .buildAndExpand(savedPost.getId())// 저장되어진 객체의 id 값
                 .toUri(); // uri 에 매핑
 
         return ResponseEntity.created(location).build();
