@@ -16,11 +16,18 @@ spring:
   devtools:
     restart:
       enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+# application 을 모니터링하고 관리하는 기능인 actuator 의 기능 확장
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-# application 을 모니터링하고 관리하는 기능인 actuator 의 기능 확장
 
 # .properties -> property = value
