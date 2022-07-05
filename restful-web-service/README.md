@@ -28,7 +28,3 @@
   - FrontController 패턴과 RequestDispatcher 기능을 묶어서 제공
     - FrontController : 프론트 컨트롤러에서 자원에게 재요청 혹은 재응답을 하게되는데 최초에 web.xml에게 한 요청/응답과 동일하게 유지할 수 있도록 해줌
     - RequestDispatcher : FrontController에 도착한 요청/응답을 그대로 유지시켜줌
-
-- Application
-
-### 3. 
