@@ -16,6 +16,6 @@
 ### HTTP
 
 -   문서를 전달하는 통신
--   Stateless방식
+-   Stateless방식, 문서(html) 전달 후 접속을 끊음
 -   server의 입장에서는 client를 구분하지 못함
     -   Web Server에서 단점을 보완
