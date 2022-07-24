@@ -22,9 +22,14 @@
 -   어노테이션은 컴파일러가 무언가를 체크할 수 있도록 힌트를 주는 주석의 개념(컴파일 시 체크)
 
 ```java
-@Override // redefine method
-@Component // load on memory(use IoC)
-@Autowired // Put the loaded object into that variable(Dependency Injection)
+@ComponentScan //   개발자가 직접 작성한 Class를 Bean으로 등록 하기 위함
+@Bean // 개발자가 직접 제어가 불가능한 외부 라이브러리등을 Bean으로 만들려 할 때
+@Autowired // field, setter, constructor에서 사용.  Type에 따라서 Bean을 DI 해준다
+@Controller // Spring MVC에서 Controller클래스에 쓰임
+@RestController // Spring Controller 중 View로 응답하지 않는 Controller를 의미(JSON반환)
+@Service // 비즈니스 로직을 수행하는 Class
+@Repository // Data Access Object class에서 사용(DB접근)
+
 ```
 
 -   리플렉션 : 어떤 해당 클래스가 어떤 필드, 메소드, 어노테이션등을 가지고 있는지 분석하는 기법, 런타임에 일어남
